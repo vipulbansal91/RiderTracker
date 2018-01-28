@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">RiderTracker</string>
     <string name="title_activity_rider_home">RiderHomeActivity</string>
+    <string name="title_activity_show_rider_location">Map</string>
 </resources>

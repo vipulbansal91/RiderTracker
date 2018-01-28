@@ -17,4 +17,9 @@ public class LandingPageActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RiderHomeActivity.class);
         startActivity(intent);
     }
+
+    public void showTrackerHome(View view) {
+        Intent intent = new Intent(this, TrackerHomeActivity.class);
+        startActivity(intent);
+    }
 }
