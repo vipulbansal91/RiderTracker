@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.vbbansal.ridertracker.helper.LocationHelper;
+import com.example.vbbansal.ridertracker.helper.SMSHelper;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 public class RiderHomeActivity extends AppCompatActivity {
@@ -34,6 +35,20 @@ public class RiderHomeActivity extends AppCompatActivity {
                 }
                 return;
             }
+
+            case SMSHelper.MY_PERMISSIONS_REQUEST_SEND_SMS: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    showRiderLocation();
+
+                } else {
+
+                    TextView tv1 = findViewById(R.id.textView);
+                    tv1.setText("OOUCH !!");
+                }
+                return;
+            }
         }
     }
 
@@ -42,15 +57,18 @@ public class RiderHomeActivity extends AppCompatActivity {
     }
 
     private void showRiderLocation() {
-        if (LocationHelper.isLocationPermissionAvailable(this)) {
-            try {
-                LocationHelper.getLastLocationTask(this)
+        if (LocationHelper.isLocationPermissionAvailable(this) && SMSHelper.isSendSmsPermissionAvailable(this)) {
+            LocationHelper.getLastLocationTask(this)
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                         @Override
                         public void onSuccess(Location lastLocation) {
                             if (lastLocation != null) {
+                                String locationString = String.format("Latitude: %s, Longitude: %s", Double.toString(lastLocation.getLatitude()), Double.toString(lastLocation.getLongitude()));
+
+                                SMSHelper.sendSMS("+917827754727", locationString);
+
                                 TextView tv1 = findViewById(R.id.textView);
-                                tv1.setText(String.format("Latitude: %s, Longitude: %s", Double.toString(lastLocation.getLatitude()), Double.toString(lastLocation.getLongitude())));
+                                tv1.setText(locationString);
                             } else {
                                 TextView tv1 = findViewById(R.id.textView);
                                 tv1.setText("OOUCH !!");
@@ -58,12 +76,15 @@ public class RiderHomeActivity extends AppCompatActivity {
 
                         }
                     });
-            } catch (SecurityException e) {
+
+        } else {
+            if (LocationHelper.isLocationPermissionAvailable(this) == false) {
                 LocationHelper.requestLocationPermission(this);
             }
 
-        } else {
-            LocationHelper.requestLocationPermission(this);
+            if (SMSHelper.isSendSmsPermissionAvailable(this) == false) {
+                SMSHelper.requestSendSmsPermission(this);
+            }
             // later part of showing the rider Location is carried out by onRequestPermissionsResult
         }
     }
