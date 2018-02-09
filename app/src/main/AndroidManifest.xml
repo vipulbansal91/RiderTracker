@@ -42,6 +42,8 @@
             android:name=".ShowRiderLocationActivity"
             android:label="@string/title_activity_show_rider_location" />
 
+        <receiver android:name=".bo.LocationSharingAlarm" />
+
     </application>
 
 </manifest>

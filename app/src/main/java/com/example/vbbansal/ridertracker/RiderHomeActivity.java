@@ -1,17 +1,27 @@
 package com.example.vbbansal.ridertracker;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.vbbansal.ridertracker.bo.LocationSharingAlarm;
+import com.example.vbbansal.ridertracker.helper.Constants;
 import com.example.vbbansal.ridertracker.helper.LocationHelper;
 import com.example.vbbansal.ridertracker.helper.SMSHelper;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 public class RiderHomeActivity extends AppCompatActivity {
+
+    private final static String senderAddress = "+917827754727";
+    private final static int frequencyInMinute = 15;
+    private AlarmManager alarmMgr;
+    private PendingIntent alarmIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +36,7 @@ public class RiderHomeActivity extends AppCompatActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    showRiderLocation();
+                    shareLocation();
 
                 } else {
 
@@ -40,7 +50,7 @@ public class RiderHomeActivity extends AppCompatActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    showRiderLocation();
+                    shareLocation();
 
                 } else {
 
@@ -52,30 +62,19 @@ public class RiderHomeActivity extends AppCompatActivity {
         }
     }
 
-    public void showRiderLocation(View view) {
-        showRiderLocation();
+    public void startLocationSharing(View view) {
+        shareLocation();
     }
 
-    private void showRiderLocation() {
+    private void shareLocation() {
         if (LocationHelper.isLocationPermissionAvailable(this) && SMSHelper.isSendSmsPermissionAvailable(this)) {
-            LocationHelper.getLastLocationTask(this)
-                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location lastLocation) {
-                            if (lastLocation != null) {
-                                String locationString = String.format("Latitude: %s, Longitude: %s", Double.toString(lastLocation.getLatitude()), Double.toString(lastLocation.getLongitude()));
+            alarmMgr = (AlarmManager)this.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
 
-                                SMSHelper.sendSMS("+917827754727", locationString);
+            Intent intent = new Intent(this, LocationSharingAlarm.class);
+            intent.putExtra(Constants.ADDRESS_TO_SHARE_LOCATION, senderAddress);
+            alarmIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
 
-                                TextView tv1 = findViewById(R.id.textView);
-                                tv1.setText(locationString);
-                            } else {
-                                TextView tv1 = findViewById(R.id.textView);
-                                tv1.setText("OOUCH !!");
-                            }
-
-                        }
-                    });
+            alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), frequencyInMinute*60*1000, alarmIntent);
 
         } else {
             if (LocationHelper.isLocationPermissionAvailable(this) == false) {

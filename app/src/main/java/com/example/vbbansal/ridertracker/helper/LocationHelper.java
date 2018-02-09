@@ -28,8 +28,8 @@ public class LocationHelper {
                 MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
     }
 
-    public static Task<Location> getLastLocationTask(Activity activity) throws SecurityException{
-        FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
+    public static Task<Location> getLastLocationTask(Context context) throws SecurityException {
+        FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
         return mFusedLocationClient.getLastLocation();
     }
 }
