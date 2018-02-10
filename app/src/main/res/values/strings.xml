@@ -2,4 +2,8 @@
     <string name="app_name">RiderTracker</string>
     <string name="title_activity_rider_home">RiderHomeActivity</string>
     <string name="title_activity_show_rider_location">Map</string>
+
+    <!-- Rider Home Activity -->
+    <string name="rider_home_start_location_share_off_text_view">I would like to Share Location with:</string>
+    <string name="rider_home_start_location_share_on_text_view">Your location is being shared with:</string>
 </resources>

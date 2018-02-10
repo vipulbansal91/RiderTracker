@@ -19,8 +19,8 @@ import com.example.vbbansal.ridertracker.helper.ViewHelper;
 
 public class RiderHomeActivity extends AppCompatActivity {
 
-    private final static String senderAddress = "+917827754727";
-    private final static int frequencyInMinute = 1;
+    private String senderAddress;
+    private int frequencyInMinute;
     private AlarmManager alarmMgr;
     private PendingIntent alarmIntent;
 
@@ -62,6 +62,9 @@ public class RiderHomeActivity extends AppCompatActivity {
     }
 
     public void startLocationSharing(View view) {
+        frequencyInMinute = Integer.parseInt(((TextView)findViewById(R.id.locationSharingFrequencyEditText)).getText().toString());
+        senderAddress = ((TextView)findViewById(R.id.senderPhoneNumberEditText)).getText().toString();
+
         shareLocation();
     }
 
@@ -75,7 +78,12 @@ public class RiderHomeActivity extends AppCompatActivity {
 
             alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), frequencyInMinute*60*1000, alarmIntent);
 
+            ((TextView)findViewById(R.id.riderHomeTextView1)).setText(
+                    getString(R.string.rider_home_start_location_share_on_text_view)
+            );
             ViewHelper.disableComponent(findViewById(R.id.startLocationSharingButton));
+            ViewHelper.disableComponent(findViewById(R.id.locationSharingFrequencyEditText));
+            ViewHelper.disableComponent(findViewById(R.id.senderPhoneNumberEditText));
             ViewHelper.enableComponent(findViewById(R.id.stopLocationSharingButton));
 
         } else {
@@ -94,8 +102,13 @@ public class RiderHomeActivity extends AppCompatActivity {
         if (alarmMgr != null) {
             alarmMgr.cancel(alarmIntent);
 
+            ((TextView)findViewById(R.id.riderHomeTextView1)).setText(
+                    getString(R.string.rider_home_start_location_share_off_text_view)
+            );
             ViewHelper.disableComponent(findViewById(R.id.stopLocationSharingButton));
             ViewHelper.enableComponent(findViewById(R.id.startLocationSharingButton));
+            ViewHelper.enableComponent(findViewById(R.id.locationSharingFrequencyEditText));
+            ViewHelper.enableComponent(findViewById(R.id.senderPhoneNumberEditText));
         }
     }
 
