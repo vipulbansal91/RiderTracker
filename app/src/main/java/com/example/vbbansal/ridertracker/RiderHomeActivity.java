@@ -19,7 +19,7 @@ import com.example.vbbansal.ridertracker.helper.SMSHelper;
 public class RiderHomeActivity extends AppCompatActivity {
 
     private final static String senderAddress = "+917827754727";
-    private final static int frequencyInMinute = 15;
+    private final static int frequencyInMinute = 1;
     private AlarmManager alarmMgr;
     private PendingIntent alarmIntent;
 
@@ -39,9 +39,7 @@ public class RiderHomeActivity extends AppCompatActivity {
                     shareLocation();
 
                 } else {
-
-                    TextView tv1 = findViewById(R.id.textView);
-                    tv1.setText("OOUCH !!");
+                    //TODO : handle gracefully
                 }
                 return;
             }
@@ -53,9 +51,7 @@ public class RiderHomeActivity extends AppCompatActivity {
                     shareLocation();
 
                 } else {
-
-                    TextView tv1 = findViewById(R.id.textView);
-                    tv1.setText("OOUCH !!");
+                    //TODO : handle gracefully
                 }
                 return;
             }
@@ -85,6 +81,12 @@ public class RiderHomeActivity extends AppCompatActivity {
                 SMSHelper.requestSendSmsPermission(this);
             }
             // later part of showing the rider Location is carried out by onRequestPermissionsResult
+        }
+    }
+
+    public void stopLocationSharing(View view) {
+        if (alarmMgr != null) {
+            alarmMgr.cancel(alarmIntent);
         }
     }
 }
