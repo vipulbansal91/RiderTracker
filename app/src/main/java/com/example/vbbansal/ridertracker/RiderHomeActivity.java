@@ -15,6 +15,7 @@ import com.example.vbbansal.ridertracker.bo.LocationSharingAlarm;
 import com.example.vbbansal.ridertracker.helper.Constants;
 import com.example.vbbansal.ridertracker.helper.LocationHelper;
 import com.example.vbbansal.ridertracker.helper.SMSHelper;
+import com.example.vbbansal.ridertracker.helper.ViewHelper;
 
 public class RiderHomeActivity extends AppCompatActivity {
 
@@ -27,6 +28,8 @@ public class RiderHomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rider_home);
+
+        ViewHelper.disableComponent(findViewById(R.id.stopLocationSharingButton));
     }
 
     @Override
@@ -72,6 +75,9 @@ public class RiderHomeActivity extends AppCompatActivity {
 
             alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), frequencyInMinute*60*1000, alarmIntent);
 
+            ViewHelper.disableComponent(findViewById(R.id.startLocationSharingButton));
+            ViewHelper.enableComponent(findViewById(R.id.stopLocationSharingButton));
+
         } else {
             if (LocationHelper.isLocationPermissionAvailable(this) == false) {
                 LocationHelper.requestLocationPermission(this);
@@ -87,6 +93,11 @@ public class RiderHomeActivity extends AppCompatActivity {
     public void stopLocationSharing(View view) {
         if (alarmMgr != null) {
             alarmMgr.cancel(alarmIntent);
+
+            ViewHelper.disableComponent(findViewById(R.id.stopLocationSharingButton));
+            ViewHelper.enableComponent(findViewById(R.id.startLocationSharingButton));
         }
     }
+
+
 }

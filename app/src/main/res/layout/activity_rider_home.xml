@@ -7,7 +7,7 @@
     tools:context="com.example.vbbansal.ridertracker.RiderHomeActivity">
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/startLocationSharingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/stopLocationSharingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -30,6 +30,6 @@
         android:text="Stop Location Sharing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/startLocationSharingButton" />
 
 </android.support.constraint.ConstraintLayout>
