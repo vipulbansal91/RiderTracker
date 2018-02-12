@@ -142,7 +142,7 @@ public class RiderHomeActivity extends AppCompatActivity {
                                 ContactsContract.CommonDataKinds.Phone.NUMBER));
 
                         ((Button) findViewById(R.id.contactPickerButton)).setText(
-                                getString(R.string.rider_home_choose_another_contact);
+                                getString(R.string.rider_home_choose_another_contact));
 
                         ((TextView)findViewById(R.id.chosenContactTextView)).setText(name + " or");
                         findViewById(R.id.chosenContactTextView).setVisibility(View.VISIBLE);
