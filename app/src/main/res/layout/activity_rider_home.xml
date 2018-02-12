@@ -42,7 +42,7 @@
         android:text="every"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/senderPhoneNumberEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/chooseContactLayout" />
 
     <TextView
         android:id="@+id/riderHomeTextView1"
@@ -55,23 +55,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/senderPhoneNumberEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="phone number"
-        android:inputType="phone"
-        android:minEms="10"
-        android:text="+91"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/riderHomeTextView1" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -102,5 +85,37 @@
             android:layout_weight="1"
             android:text="minutes" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/chooseContactLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/riderHomeTextView1">
+
+        <TextView
+            android:id="@+id/chosenContactTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/contactPickerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="selectContact"
+            android:text="Choose Contact" />
+
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>
