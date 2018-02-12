@@ -57,8 +57,6 @@ public class TrackerHomeActivity extends AppCompatActivity {
             Map<String, Sms> riderNumberToLatestSms = getRiderNumberToLatestSms(riderTrackerSmsList);
 
             addButtonsForRiders(riderNumberToLatestSms);
-
-
         } else {
             SMSHelper.requestReadSmsPermission(this);
         }
@@ -98,12 +96,12 @@ public class TrackerHomeActivity extends AppCompatActivity {
         for (Map.Entry<String, Sms> entry : riderNumberToLatestSms.entrySet()) {
 
             // add button
-            Button b = new Button(this);
-            b.setText(Constants.TRACK + " " + entry.getKey());
-            b.setLayoutParams(getLayoutParams());
-            b.setGravity(Gravity.CENTER);
-            setOnClick(b, entry.getValue().getLocation());
-            ll.addView(b);
+            Button button = new Button(this);
+            button.setText(Constants.TRACK + " " + entry.getKey());
+            button.setLayoutParams(getLayoutParams());
+            button.setGravity(Gravity.CENTER);
+            setOnClick(button, entry.getValue().getLocation());
+            ll.addView(button);
 
         }
     }
@@ -113,9 +111,6 @@ public class TrackerHomeActivity extends AppCompatActivity {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-
-        //TODO : Add code to center the button. The below code does not make any change
-        //layoutParams.setMargins(8,8,8,8);
 
         return layoutParams;
     }
