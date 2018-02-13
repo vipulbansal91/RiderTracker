@@ -2,8 +2,11 @@ package com.example.vbbansal.ridertracker;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.vbbansal.ridertracker.helper.Constants;
+import com.example.vbbansal.ridertracker.helper.ContactHelper;
 import com.example.vbbansal.ridertracker.helper.SMSHelper;
 import com.example.vbbansal.ridertracker.model.Sms;
 
@@ -43,22 +47,40 @@ public class TrackerHomeActivity extends AppCompatActivity {
                     displayRidersToTrack();
 
                 } else {
+                    //TODO - Handle gracefully
 
                 }
-                return;
+            }
+            case ContactHelper.MY_PERMISSIONS_REQUEST_READ_CONTACTS : {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    displayRidersToTrack();
+
+                } else {
+                    //TODO - Handle gracefully
+                }
             }
         }
     }
 
     private void displayRidersToTrack() {
-        if (SMSHelper.isReadSmsPermissionAvailable(this)) {
+        if (SMSHelper.isReadSmsPermissionAvailable(this) && ContactHelper.isReadContactsPermissionAvailable(this)) {
             List<Sms> smsList = SMSHelper.getTMinus24HourSms(this);
             List<Sms> riderTrackerSmsList = filterRiderTrackerSms(smsList);
             Map<String, Sms> riderNumberToLatestSms = getRiderNumberToLatestSms(riderTrackerSmsList);
+            Map<String, Sms> riderNameOrNumberToLatestSms = getRiderNameOrNumberToLatestSms(riderNumberToLatestSms);
 
-            addButtonsForRiders(riderNumberToLatestSms);
+            addButtonsForRiders(riderNameOrNumberToLatestSms);
         } else {
-            SMSHelper.requestReadSmsPermission(this);
+            if (SMSHelper.isReadSmsPermissionAvailable(this) == false) {
+                SMSHelper.requestReadSmsPermission(this);
+            }
+
+            if (ContactHelper.isReadContactsPermissionAvailable(this) == false) {
+                ContactHelper.requestReadContactsPermission(this);
+            }
+
         }
     }
 
@@ -90,10 +112,25 @@ public class TrackerHomeActivity extends AppCompatActivity {
         return riderNumberToLatestSms;
     }
 
-    private void addButtonsForRiders(Map<String, Sms> riderNumberToLatestSms){
-        LinearLayout ll = findViewById(R.id.trackerHomeLinerLayout);
+    private Map<String, Sms> getRiderNameOrNumberToLatestSms(Map<String, Sms> riderNumberToLatestSms) {
+        Map<String, Sms> riderNameOrNumberToLatestSms = new HashMap<>();
 
         for (Map.Entry<String, Sms> entry : riderNumberToLatestSms.entrySet()) {
+            String contactName = ContactHelper.getContactName(entry.getKey(), this);
+            if (contactName != null) {
+                riderNameOrNumberToLatestSms.put(contactName, entry.getValue());
+            } else {
+                riderNameOrNumberToLatestSms.put(entry.getKey(), entry.getValue());
+            }
+        }
+
+        return riderNameOrNumberToLatestSms;
+    }
+
+    private void addButtonsForRiders(Map<String, Sms> riderNameOrNumberToLatestSms){
+        LinearLayout ll = findViewById(R.id.trackerHomeLinerLayout);
+
+        for (Map.Entry<String, Sms> entry : riderNameOrNumberToLatestSms.entrySet()) {
 
             // add button
             Button button = new Button(this);

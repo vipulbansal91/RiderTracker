@@ -56,12 +56,10 @@ public class SMSHelper {
     public static List<Sms> getTMinus24HourSms(Context context) {
         List<Sms> smsListToReturn = new ArrayList<>();
 
-        ContentResolver contentResolver = context.getContentResolver();
-
         String[] projection = new String[]{ "_id", "address", "body", "date" };
         String selection = "date > '" + DateHelper.getYesterdayDate().getTime() + "'";
 
-        Cursor cursor = contentResolver.query(INBOX_URI, projection, selection,null,"date desc");
+        Cursor cursor = context.getContentResolver().query(INBOX_URI, projection, selection,null,"date desc");
         if (cursor.moveToFirst()) {
             do {
                 smsListToReturn.add(new Sms(
