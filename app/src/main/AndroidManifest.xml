@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".LandingPageActivity">
+        <activity android:name=".LandingPageActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +30,8 @@
             android:screenOrientation="portrait" />
 
         <activity android:name=".TrackerHomeActivity"
-            android:parentActivityName=".LandingPageActivity" />
+            android:parentActivityName=".LandingPageActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ShowRiderLocationActivity"
