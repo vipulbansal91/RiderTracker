@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.vbbansal.ridertracker.LandingPageActivity">
+    tools:context="com.example.vbbansal.ridertracker.com.vipulbansal91.ridertracker.LandingPageActivity">
 
     <Button
         android:id="@+id/button"

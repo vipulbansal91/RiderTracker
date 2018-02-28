@@ -1,12 +1,9 @@
-package com.example.vbbansal.ridertracker;
+package com.vipulbansal91.ridertracker;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
@@ -14,18 +11,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.example.vbbansal.ridertracker.helper.Constants;
-import com.example.vbbansal.ridertracker.helper.ContactHelper;
-import com.example.vbbansal.ridertracker.helper.SMSHelper;
-import com.example.vbbansal.ridertracker.model.Sms;
+import com.vipulbansal91.ridertracker.helper.Constants;
+import com.vipulbansal91.ridertracker.helper.ContactHelper;
+import com.vipulbansal91.ridertracker.helper.SMSHelper;
+import com.vipulbansal91.ridertracker.model.Sms;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.vbbansal.ridertracker.helper.Constants.LATITUDE;
-import static com.example.vbbansal.ridertracker.helper.Constants.LONGITUDE;
+import static com.vipulbansal91.ridertracker.helper.Constants.LATITUDE;
+import static com.vipulbansal91.ridertracker.helper.Constants.LONGITUDE;
 
 public class TrackerHomeActivity extends AppCompatActivity {
 

@@ -1,8 +1,8 @@
-package com.example.vbbansal.ridertracker.model;
+package com.vipulbansal91.ridertracker.model;
 
 import android.location.Location;
 
-import com.example.vbbansal.ridertracker.helper.Constants;
+import com.vipulbansal91.ridertracker.helper.Constants;
 
 import java.util.Date;
 import java.util.regex.Matcher;

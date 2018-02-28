@@ -1,4 +1,4 @@
-package com.example.vbbansal.ridertracker.helper;
+package com.vipulbansal91.ridertracker.helper;
 
 import android.Manifest;
 import android.app.Activity;

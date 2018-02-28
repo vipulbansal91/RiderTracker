@@ -1,4 +1,4 @@
-package com.example.vbbansal.ridertracker;
+package com.vipulbansal91.ridertracker;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -10,8 +10,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import static com.example.vbbansal.ridertracker.helper.Constants.LATITUDE;
-import static com.example.vbbansal.ridertracker.helper.Constants.LONGITUDE;
+import static com.vipulbansal91.ridertracker.helper.Constants.LATITUDE;
+import static com.vipulbansal91.ridertracker.helper.Constants.LONGITUDE;
 
 public class ShowRiderLocationActivity extends FragmentActivity implements OnMapReadyCallback {
 

@@ -1,4 +1,4 @@
-package com.example.vbbansal.ridertracker;
+package com.vipulbansal91.ridertracker;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -17,11 +17,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.vbbansal.ridertracker.bo.LocationSharingAlarm;
-import com.example.vbbansal.ridertracker.helper.Constants;
-import com.example.vbbansal.ridertracker.helper.LocationHelper;
-import com.example.vbbansal.ridertracker.helper.SMSHelper;
-import com.example.vbbansal.ridertracker.helper.ViewHelper;
+import com.vipulbansal91.ridertracker.bo.LocationSharingAlarm;
+import com.vipulbansal91.ridertracker.helper.Constants;
+import com.vipulbansal91.ridertracker.helper.LocationHelper;
+import com.vipulbansal91.ridertracker.helper.SMSHelper;
+import com.vipulbansal91.ridertracker.helper.ViewHelper;
 
 public class RiderHomeActivity extends AppCompatActivity {
 

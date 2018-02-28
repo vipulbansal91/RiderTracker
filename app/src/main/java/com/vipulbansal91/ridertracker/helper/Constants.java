@@ -1,4 +1,4 @@
-package com.example.vbbansal.ridertracker.helper;
+package com.vipulbansal91.ridertracker.helper;
 
 public class Constants {
     public static String LATITUDE = "Latitude";

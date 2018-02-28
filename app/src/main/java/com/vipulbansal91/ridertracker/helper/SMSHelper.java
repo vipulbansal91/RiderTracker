@@ -1,8 +1,7 @@
-package com.example.vbbansal.ridertracker.helper;
+package com.vipulbansal91.ridertracker.helper;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -11,7 +10,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.telephony.SmsManager;
 
-import com.example.vbbansal.ridertracker.model.Sms;
+import com.vipulbansal91.ridertracker.model.Sms;
 
 import java.util.ArrayList;
 import java.util.Date;
