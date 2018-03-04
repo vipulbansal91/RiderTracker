@@ -12,6 +12,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import static com.vipulbansal91.ridertracker.helper.Constants.LATITUDE;
 import static com.vipulbansal91.ridertracker.helper.Constants.LONGITUDE;
+import static com.vipulbansal91.ridertracker.helper.Constants.MARKER_TITLE;
 
 public class ShowRiderLocationActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -44,7 +45,9 @@ public class ShowRiderLocationActivity extends FragmentActivity implements OnMap
 
         LatLng locationToMark = new LatLng(getIntent().getDoubleExtra(LATITUDE, 0.0),
                 getIntent().getDoubleExtra(LONGITUDE, 0.0));
-        mMap.addMarker(new MarkerOptions().position(locationToMark).title("Sample"));
+        mMap.addMarker(new MarkerOptions()
+                .position(locationToMark)
+                .title(getIntent().getStringExtra(MARKER_TITLE))).showInfoWindow();
         mMap.moveCamera(CameraUpdateFactory.newLatLng(locationToMark));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f));
     }

@@ -17,13 +17,16 @@ import com.vipulbansal91.ridertracker.helper.ContactHelper;
 import com.vipulbansal91.ridertracker.helper.SMSHelper;
 import com.vipulbansal91.ridertracker.model.Sms;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static com.vipulbansal91.ridertracker.helper.Constants.LATITUDE;
 import static com.vipulbansal91.ridertracker.helper.Constants.LONGITUDE;
+import static com.vipulbansal91.ridertracker.helper.Constants.MARKER_TITLE;
 
 public class TrackerHomeActivity extends AppCompatActivity {
 
@@ -148,7 +151,7 @@ public class TrackerHomeActivity extends AppCompatActivity {
             button.setText(Constants.TRACK + " " + entry.getKey());
             button.setLayoutParams(getLayoutParams());
             button.setGravity(Gravity.CENTER);
-            setOnClick(button, entry.getValue().getLocation());
+            setOnClick(button, entry.getValue().getLocation(), entry.getValue().getDate());
             ll.addView(button);
 
         }
@@ -163,19 +166,20 @@ public class TrackerHomeActivity extends AppCompatActivity {
         return layoutParams;
     }
 
-    private void setOnClick(final Button btn, final Location location){
+    private void setOnClick(final Button btn, final Location location, final Date date){
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startShowLocationActivity(location.getLatitude(), location.getLongitude());
+                startShowLocationActivity(location.getLatitude(), location.getLongitude(), date);
             }
         });
     }
 
-    private void startShowLocationActivity(double lat, double lang) {
+    private void startShowLocationActivity(double lat, double lang, Date date) {
         Intent intent = new Intent(this, ShowRiderLocationActivity.class);
         intent.putExtra(LATITUDE, lat);
         intent.putExtra(LONGITUDE, lang);
+        intent.putExtra(MARKER_TITLE, "@ " + new SimpleDateFormat("HH:mm").format(date));
         startActivity(intent);
     }
 }
