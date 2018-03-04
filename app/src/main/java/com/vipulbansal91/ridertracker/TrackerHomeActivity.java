@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.vipulbansal91.ridertracker.helper.Constants;
 import com.vipulbansal91.ridertracker.helper.ContactHelper;
@@ -65,10 +66,14 @@ public class TrackerHomeActivity extends AppCompatActivity {
         if (SMSHelper.isReadSmsPermissionAvailable(this) && ContactHelper.isReadContactsPermissionAvailable(this)) {
             List<Sms> smsList = SMSHelper.getTMinus24HourSms(this);
             List<Sms> riderTrackerSmsList = filterRiderTrackerSms(smsList);
-            Map<String, Sms> riderNumberToLatestSms = getRiderNumberToLatestSms(riderTrackerSmsList);
-            Map<String, Sms> riderNameOrNumberToLatestSms = getRiderNameOrNumberToLatestSms(riderNumberToLatestSms);
+            if (riderTrackerSmsList.isEmpty()) {
+                addNoRiderView();
+            } else {
+                Map<String, Sms> riderNumberToLatestSms = getRiderNumberToLatestSms(riderTrackerSmsList);
+                Map<String, Sms> riderNameOrNumberToLatestSms = getRiderNameOrNumberToLatestSms(riderNumberToLatestSms);
 
-            addButtonsForRiders(riderNameOrNumberToLatestSms);
+                addButtonsForRiders(riderNameOrNumberToLatestSms);
+            }
         } else {
             if (SMSHelper.isReadSmsPermissionAvailable(this) == false) {
                 SMSHelper.requestReadSmsPermission(this);
@@ -79,6 +84,15 @@ public class TrackerHomeActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    private void addNoRiderView() {
+        LinearLayout ll = findViewById(R.id.trackerHomeLinerLayout);
+
+        TextView textView = new TextView(this);
+        textView.setText("Yet to receive a location update !!");
+
+        ll.addView(textView);
     }
 
     private List<Sms> filterRiderTrackerSms(List<Sms> smsList) {
